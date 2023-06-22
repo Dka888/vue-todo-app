@@ -228,23 +228,24 @@ export default {
           <button @click="removeTodo(todo.id)" class="todo-item-button">X</button>
         </li>
       </ul>
-    </div>
+    
     <footer class="todoapp__footer">
-      <span class="todo-count"></span>
-      <nav class="filter">
-        <a href="#/"
-          :class="{ 'filter__link selected': filtered === Filters.All, 'filter__link': filtered !== Filters.All }"
-          @click="setFiltered(Filters.All)"> All </a>
-        <a href="#/active"
-          :class="{ 'filter__link selected': filtered === Filters.Active, 'filter__link': filtered !== Filters.Active }"
-          @click="setFiltered(Filters.Active)"> Active </a>
-        <a href="#/completed"
-          :class="{ 'filter__link selected': filtered === Filters.Completed, 'filter__link': filtered !== Filters.Completed }"
-          @click="setFiltered(Filters.Completed)"> Completed </a>
-      </nav>
-      <button type="button" class="todoapp__clear-completed" @click="removeAllCompleted">Clear completed</button>
-    </footer>
-  </div>
+        <span class="todo-count">{{ this.todos.filter(todo => !todo.completed).length }} items left</span>
+        <nav class="filter">
+          <a href="#/"
+            :class="{ 'filter__link selected': filtered === Filters.All, 'filter__link': filtered !== Filters.All }"
+            @click="setFiltered(Filters.All)"> All </a>
+          <a href="#/active"
+            :class="{ 'filter__link selected': filtered === Filters.Active, 'filter__link': filtered !== Filters.Active }"
+            @click="setFiltered(Filters.Active)"> Active </a>
+          <a href="#/completed"
+            :class="{ 'filter__link selected': filtered === Filters.Completed, 'filter__link': filtered !== Filters.Completed }"
+            @click="setFiltered(Filters.Completed)"> Completed </a>
+        </nav>
+        <button type="button" class="todoapp__clear-completed" @click="removeAllCompleted">Clear completed</button>
+      </footer>
+    </div>
+    </div>
 </template>
   
 <script>
@@ -428,8 +429,11 @@ export default {
 </script>
   
 <style>
+body {
+  font-size: 18px;
+}
   .todo {
-    width: 400px;
+    width: 600px;
     margin: auto;
     text-align: center;
   }
@@ -454,7 +458,7 @@ export default {
   }
   
   .todo-input {
-    width: 350px;
+    width: 550px;
     height: 50px;
     border: transparent;
   }
@@ -476,6 +480,7 @@ export default {
     flex-grow: 1;
     padding: 8px;
     border: 1px transparent;
+    height: 30px;
   }
   
   .todo-item-button {
@@ -496,6 +501,8 @@ export default {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    border: 1px solid #ccc;
+    height: 40px;
   }
   header {
     display: flex;
@@ -512,5 +519,37 @@ export default {
   padding: 6px;
   border-radius: 50%;
   }
+
+  .filter__link {
+  margin-right: 10px;
+  font-size: 16px;
+  color: #333;
+  text-decoration: none;
+  padding: 5px 8px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+.filter {
+  display: flex;
+  align-items: center;
+}
+
+.filter__link.selected {
+  background-color: darkred;
+  color: #fff;
+}
+.todo-count {
+  align-items: center;
+  margin: auto 5px;
+}
+
+.todoapp__clear-completed {
+  background-color: transparent;
+  color: darkred;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: underline;
+}
   </style>
   
