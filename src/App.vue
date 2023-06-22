@@ -1,17 +1,19 @@
 <template>
   <div id="app">
-    <h1>Todo App</h1>
     <TodoApp />
+    <!-- <TodoError /> -->
   </div>
 </template>
 
 <script>
 import TodoApp from './views/TodoApp.vue';
+// import TodoError from './components/TodoError.vue';
 
 export default {
   name: 'App',
   components: {
     TodoApp,
+    // TodoError,
   },
 };
 </script>
