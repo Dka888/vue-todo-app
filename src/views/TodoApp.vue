@@ -215,7 +215,7 @@ export default {
     <h2 class="todo-heading">Todo App</h2>
     <div class="todo-container">
       <header>
-        <button type="button" class="header-button" @click="toggleComplete">&lt;</button>
+        <button type="button" class="header-button" @click="toggleComplete">^</button>
         <form @submit.prevent="addTodo" class="todo-form">
           <input type="text" v-model="newTodo" placeholder="Add a new todo" required class="todo-input">
         </form>
@@ -458,9 +458,12 @@ body {
   }
   
   .todo-input {
-    width: 550px;
+    width: 530px;
     height: 50px;
     border: transparent;
+    font-size: 20px;
+    padding-left: 20px;
+    overflow: hidden;
   }
   
   .todo-list {
@@ -481,6 +484,7 @@ body {
     padding: 8px;
     border: 1px transparent;
     height: 30px;
+    font-size: 20px;
   }
   
   .todo-item-button {
@@ -510,14 +514,16 @@ body {
 
   .header-button {
   margin: 8px;
-  background-color: #f0f0f0;
+  margin-top: 12px;
+  background-color: transparent;
   color: #333;
   border: none;
   cursor: pointer;
-  width: 25px;
+  width: 45px;
   height: 25px;
-  padding: 6px;
-  border-radius: 50%;
+  font-size: xx-large;
+  transform:rotate(180deg);
+  padding: 0;
   }
 
   .filter__link {
