@@ -102,7 +102,7 @@ export default {
       .finally(() => this.loader = false);
     },
     addTodo() {
-      if (this.newTodo !== '') {
+      if (this.newTodo.trim() !== '') {
         const newTodo = {
           id: 0,
           title: this.newTodo,
@@ -357,5 +357,5 @@ body {
 .hide {
   opacity: 0;
 }
-  </style>
+</style>
   
