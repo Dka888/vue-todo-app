@@ -236,8 +236,8 @@ body {
   }
   
   .todo-container {
-    box-shadow: 0 0 35px rgb(189, 192, 196);
-    border: 2px solid rgb(175, 176, 179);
+    box-shadow: 0 0 35px brown;
+    border: 2px solid brown;
   }
   
   .todo-heading {
@@ -246,7 +246,7 @@ body {
     padding-top: 100px;
     margin: auto;
     color: darkred;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
   }
   
   .todo-form {
@@ -261,6 +261,8 @@ body {
     font-size: 20px;
     padding-left: 20px;
     overflow: hidden;
+    color: rgb(148, 103, 25);
+    font-weight: 600;
   }
   
   .todo-list {
@@ -282,6 +284,9 @@ body {
     border: 1px transparent;
     height: 30px;
     font-size: 20px;
+    
+    color: #7b4b01;
+    font-weight: 600;
   }
   
   .todo-item-button {
@@ -289,7 +294,8 @@ body {
     margin-left: 8px;
     padding: 8px;
     background-color: #fff;
-    color: darkred;
+    color: rgb(123, 2, 2);
+    font-size: medium;
     border: transparent;
     cursor: pointer;
   }
