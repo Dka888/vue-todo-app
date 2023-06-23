@@ -1,255 +1,46 @@
-<!-- <template>
-      <div class="todo">
-        <h2 class="todo-heading">Todo App</h2>
-        <div class="todo-container">
-        <form v-on:submit.prevent="addTodo" class="todo-form">
-          <input type="text" v-model="newTodo" placeholder="Add a new todo" required class="todo-input">
-        </form>
-        <ul class="todo-list">
-          <li v-for="todo in todos" :key="todo.id" class="todo-item">
-            <input type="checkbox" :checked="todo.completed" @change="toggleTodoStatus(todo)" class="todo-checkbox">
-              <input type="text" v-model="todo.title" @change="updateTodo(todo)" class="todo-item-input" v-bind:class="{done: todo.completed}"> 
-            <button v-on:click="removeTodo(todo.id)" class="todo-item-button">X</button>
-          </li>
-        </ul>
-      </div>
-      <footer class="todoapp__footer">
-      <span class="todo-count">
-      </span>
-      <nav class="filter">
-    <a
-      href="#/"
-      :class="{ 'filter__link selected': filtered === Filters.All, 'filter__link': filtered !== Filters.All }"
-      @click="setFiltered(Filters.All)"
-    >
-      All
-    </a>
-
-    <a
-      href="#/active"
-      :class="{ 'filter__link selected': filtered === Filters.Active, 'filter__link': filtered !== Filters.Active }"
-      @click="setFiltered(Filters.Active)"
-    >
-      Active
-    </a>
-
-    <a
-      href="#/completed"
-      :class="{ 'filter__link selected': filtered === Filters.Completed, 'filter__link': filtered !== Filters.Completed }"
-      @click="setFiltered(Filters.Completed)"
-    >
-      Completed
-    </a>
-    </nav>
-
-      <button
-        type="button"
-        class="todoapp__clear-completed"
-      >
-        Clear completed
-      </button>
-
-    </footer>
-    </div>
-  </template>
-  
-<script>
-import axios from 'axios';
-
-export default {
-  data() {
-    return {
-      todos: [],
-      newTodo: '',
-      Filters: {
-        All: 'All',
-        Active: 'Active',
-        Completed: 'Completed'
-      },
-      filtered: 'All'
-    };
-  },
-  mounted() {
-    this.fetchTodos();
-  },
-  methods: {
-    fetchTodos() {
-      axios
-        .get('https://jsonplaceholder.typicode.com/todos?_limit=3')
-        .then((response) => {
-          this.todos = response.data;
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
-    addTodo() {
-      if (this.newTodo !== '') {
-        const newTodo = {
-          id: this.todos.length + 1,
-          title: this.newTodo,
-          completed: false,
-        };
-        this.todos.push(newTodo);
-        this.newTodo = '';
-      }
-    },
-    toggleTodoStatus(todo) {
-      todo.completed = !todo.completed;
-      axios
-        .put(`https://jsonplaceholder.typicode.com/todos/${todo.id}`, todo)
-        .then(() => {
-          console.log('Todo status updated successfully!');
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
-    updateTodo(todo) {
-      axios
-        .put(`https://jsonplaceholder.typicode.com/todos/${todo.id}`, todo)
-        .then(() => {
-          console.log('Todo updated successfully!');
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
-    removeTodo(todoId) {
-      this.todos = this.todos.filter((todo) => todo.id !== todoId);
-    },
-    setFiltered(filter) {
-      this.filtered = filter;
-      // switch(filter) {
-      //   case 'Active': 
-      //     this.todos = this.todos.filter(todo => todo.completed !== todo.completed);
-      //     break;
-      //   case 'Completed': 
-      //     return this.todos = this.todos.filter(todo => todo.completed === todo.completed);
-      //   case 'All': 
-      //     return this.todos;
-      //   default: return this.todos;
-      // }
-    }
-  },
-};
-</script>
-  
- 
-  
-<style>
-  .todo {
-    width: 400px;
-    margin:auto;
-    text-align: center;
-
-  }
-  .todo-container {
-    box-shadow: 0 0 35px rgb(189, 192, 196);
-    border: 2px solid rgb(175, 176, 179);
-  }
-
-  .todo-heading {
-    font-size: 36px;
-    text-align: center;
-    padding-top: 100px;
-    margin:auto;
-    color: darkred;
-    margin-bottom: 15px;
-  }
-  
-  .todo-form {
-    width: 100%;
-    margin:auto;
-  }
-  
-  .todo-input {
-    width: 390px;
-    height: 50px;
-    border: transparent;
-  }
-
-  
-  .todo-list {
-    list-style-type: none;
-    padding: 0;
-    width: 100%;
-    margin:auto;
-  }
-  
-  .todo-item {
-    display: flex;
-    align-items: center;
-    border: 1px solid #ccc;
-  }
-  
-  .todo-item-input {
-    flex-grow: 1;
-    padding: 8px;
-    border: 1px transparent;
-  }
-  
-  .todo-item-button {
-    margin: 4px;
-    margin-left: 8px;
-    padding: 8px;
-    background-color:#fff;
-    color: darkred;
-    border: transparent;
-    cursor: pointer;
-  }
-  .done {
-    text-decoration: line-through;
-  }
-
-  .todoapp__footer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-  </style> -->
-  
-
 <template>
   <div class="todo">
     <h2 class="todo-heading">Todo App</h2>
-    <div class="todo-container">
-      <header>
-        <button type="button" class="header-button" @click="toggleComplete">^</button>
-        <form @submit.prevent="addTodo" class="todo-form">
-          <input type="text" v-model="newTodo" placeholder="Add a new todo" required class="todo-input">
-        </form>
-      </header>
-      <ul class="todo-list">
-        <li v-for="todo in filteredTodos" :key="todo.id" class="todo-item">
-          <input type="checkbox" v-model="todo.completed" @change="toggleTodoStatus(todo)" class="todo-checkbox">
-          <input type="text" v-model="todo.title" @change="updateTodo(todo)" :class="{ done: todo.completed }"
-            class="todo-item-input">
-          <button @click="removeTodo(todo.id)" class="todo-item-button">X</button>
-        </li>
-      </ul>
+      <Loader v-if="loader"/>
+      <div v-else class="todo-container">
+        <header>
+          <button type="button" class="header-button" @click="toggleComplete">^</button>
+          <form @submit.prevent="addTodo" class="todo-form">
+            <input type="text" v-model="newTodo" placeholder="Add a new todo" required class="todo-input">
+          </form>
+        </header>
+      
+        <ul class="todo-list">
+          <li v-for="todo in filteredTodos" :key="todo.id" class="todo-item">
+            <input type="checkbox" v-model="todo.completed" @change="toggleTodoStatus(todo)" class="todo-checkbox">
+            <input type="text" v-model="todo.title" @change="updateTodo(todo)" :class="{ done: todo.completed }"
+              class="todo-item-input">
+            <button @click="removeTodo(todo.id)" class="todo-item-button">X</button>
+          </li>
+        </ul>
     
-    <footer class="todoapp__footer">
-        <span class="todo-count">{{ this.todos.filter(todo => !todo.completed).length }} items left</span>
-        <nav class="filter">
-          <a href="#/"
-            :class="{ 'filter__link selected': filtered === Filters.All, 'filter__link': filtered !== Filters.All }"
-            @click="setFiltered(Filters.All)"> All </a>
-          <a href="#/active"
-            :class="{ 'filter__link selected': filtered === Filters.Active, 'filter__link': filtered !== Filters.Active }"
-            @click="setFiltered(Filters.Active)"> Active </a>
-          <a href="#/completed"
-            :class="{ 'filter__link selected': filtered === Filters.Completed, 'filter__link': filtered !== Filters.Completed }"
-            @click="setFiltered(Filters.Completed)"> Completed </a>
-        </nav>
-        <button type="button" class="todoapp__clear-completed" @click="removeAllCompleted">Clear completed</button>
-      </footer>
-    </div>
-    </div>
+      <footer class="todoapp__footer">
+          <span class="todo-count">{{ this.todos.filter(todo => !todo.completed).length }} items left</span>
+          <nav class="filter">
+            <a href="#/"
+              :class="{ 'filter__link selected': filtered === Filters.All, 'filter__link': filtered !== Filters.All }"
+              @click="setFiltered(Filters.All)"> All </a>
+            <a href="#/active"
+              :class="{ 'filter__link selected': filtered === Filters.Active, 'filter__link': filtered !== Filters.Active }"
+              @click="setFiltered(Filters.Active)"> Active </a>
+            <a href="#/completed"
+              :class="{ 'filter__link selected': filtered === Filters.Completed, 'filter__link': filtered !== Filters.Completed }"
+              @click="setFiltered(Filters.Completed)"> Completed </a>
+          </nav>
+          <button type="button" class="todoapp__clear-completed" :class="{ hide: todos.filter(todo => !todo.completed).length === todos.length }" @click="removeAllCompleted">Clear completed</button>
+        </footer>
+      </div>
+      </div>
 </template>
   
 <script>
 import axios from 'axios';
+import Loader from './Loader';
 
 export default {
   data() {
@@ -266,7 +57,8 @@ export default {
         Active: 'Active',
         Completed: 'Completed'
       },
-      filtered: 'All'
+      filtered: 'All',
+      loader: true,
     };
   },
   computed: {
@@ -290,6 +82,9 @@ export default {
     }
   },
 
+  components: {
+    Loader
+  },
   mounted() {
     this.fetchTodos();
   },
@@ -298,11 +93,13 @@ export default {
       axios
         .get('https://mate.academy/students-api/todos?userId=10529')
         .then((response) => {
+          this.loader = true;
           this.todos = response.data;
         })
         .catch((error) => {
           console.error(error);
-        });
+        })
+      .finally(() => this.loader = false);
     },
     addTodo() {
       if (this.newTodo !== '') {
@@ -433,7 +230,7 @@ body {
   font-size: 18px;
 }
   .todo {
-    width: 600px;
+    width: 500px;
     margin: auto;
     text-align: center;
   }
@@ -458,7 +255,7 @@ body {
   }
   
   .todo-input {
-    width: 530px;
+    width: 430px;
     height: 50px;
     border: transparent;
     font-size: 20px;
@@ -555,7 +352,10 @@ body {
   border: none;
   cursor: pointer;
   font-size: 16px;
-  text-decoration: underline;
+}
+
+.hide {
+  opacity: 0;
 }
   </style>
   
